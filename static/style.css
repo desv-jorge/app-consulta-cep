@@ -1,0 +1,172 @@
+/* ===== Design System — App Consulta CEP ===== */
+/* Paleta herdada do gerador-imagens-ai */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-color: #0f111a;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #475569;
+    --primary-glow: #6366f1;
+    --btn-primary: #4f46e5;
+    --btn-hover: #4338ca;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+    --success: #22c55e;
+    --success-bg: rgba(34, 197, 94, 0.08);
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.08);
+    --radius-sm: 12px;
+    --radius-lg: 24px;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    background-image:
+        radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1) 0%, transparent 40%);
+    -webkit-font-smoothing: antialiased;
+}
+
+.app-container {
+    width: 100%; max-width: 480px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.app-header { text-align: center; padding: 2rem 2rem 1.25rem; }
+.app-header h1 {
+    font-size: 1.75rem; font-weight: 700; margin-bottom: 0.35rem;
+    background: linear-gradient(to right, #e0e7ff, #818cf8);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.app-header p { color: var(--text-secondary); font-size: 0.85rem; }
+
+.search-section { padding: 0 1.5rem 1.25rem; }
+.input-group { display: flex; gap: 0.75rem; }
+
+.search-input {
+    flex: 1; background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    padding: 0.9rem 1.15rem; color: var(--text-primary);
+    font-size: 1rem; font-family: 'Inter', sans-serif; outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+.search-input:focus { border-color: var(--primary-glow); box-shadow: 0 0 0 3px var(--accent-glow); }
+.search-input::placeholder { color: var(--text-muted); }
+.search-input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }
+
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+    font-size: 0.9rem; font-weight: 600; font-family: 'Inter', sans-serif;
+    border: none; border-radius: var(--radius-sm); cursor: pointer;
+    transition: all var(--transition); text-decoration: none; white-space: nowrap;
+}
+.btn-primary {
+    background-color: var(--btn-primary); color: white; padding: 0 1.4rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+.btn-primary:hover {
+    background-color: var(--btn-hover); transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+}
+.btn-primary:active { transform: translateY(1px); }
+.btn-icon { font-size: 1rem; }
+
+.tabs { display: flex; border-bottom: 1px solid var(--border-color); }
+.tab-btn {
+    flex: 1; padding: 0.85rem 0; background: none; border: none;
+    border-bottom: 2px solid transparent; color: var(--text-muted);
+    font-size: 0.8rem; font-weight: 600; font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: all var(--transition);
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+}
+.tab-btn:hover { color: var(--text-secondary); background: rgba(255,255,255,0.02); }
+.tab-btn.active { color: var(--primary-glow); border-bottom-color: var(--primary-glow); }
+.tab-emoji { font-size: 1rem; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: tabFade 0.3s ease-out; }
+@keyframes tabFade { from { opacity: 0; } to { opacity: 1; } }
+
+.webview-frame { width: 100%; height: 580px; border: none; display: block; background: #fff; }
+
+.api-content { padding: 1.5rem; min-height: 300px; display: flex; flex-direction: column; gap: 1rem; }
+
+.api-idle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 3rem 1rem; text-align: center; }
+.api-idle .idle-icon { font-size: 3rem; opacity: 0.5; }
+.api-idle p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+.api-idle strong { color: var(--text-secondary); }
+
+.api-loading { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 3rem 1rem; }
+.api-loading.show { display: flex; }
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border-color); border-top-color: var(--primary-glow); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.api-loading p { color: var(--text-secondary); font-size: 0.85rem; }
+
+.result-fields { display: none; flex-direction: column; gap: 0.65rem; }
+.result-fields.show { display: flex; }
+.field {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.75rem 1rem; background: rgba(0,0,0,0.2);
+    border-radius: var(--radius-sm); border-left: 3px solid var(--primary-glow);
+    animation: slideIn 0.35s ease-out backwards;
+}
+.field:nth-child(1) { animation-delay: 0.05s; }
+.field:nth-child(2) { animation-delay: 0.1s; }
+.field:nth-child(3) { animation-delay: 0.15s; }
+.field:nth-child(4) { animation-delay: 0.2s; }
+.field:nth-child(5) { animation-delay: 0.25s; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+.field:hover { background: rgba(0,0,0,0.3); }
+.field-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.field-value { font-size: 1rem; font-weight: 500; color: var(--text-primary); }
+
+.result-badge { display: none; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem; background: var(--success-bg); border: 1px solid rgba(34,197,94,0.15); border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; color: var(--success); }
+.result-badge.show { display: flex; }
+
+.error-card { display: none; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.5rem; background: var(--danger-bg); border: 1px solid rgba(239,68,68,0.15); border-radius: var(--radius-sm); text-align: center; }
+.error-card.show { display: flex; }
+.error-card .error-icon { font-size: 1.8rem; }
+.error-card .error-message { font-size: 0.9rem; font-weight: 500; color: #fca5a5; }
+
+.illustration { display: none; justify-content: center; padding-top: 0.5rem; }
+.illustration.show { display: flex; }
+.illustration img { width: 180px; height: 180px; object-fit: contain; border-radius: var(--radius-sm); opacity: 0.8; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3)); transition: opacity var(--transition), transform var(--transition); }
+.illustration img:hover { opacity: 1; transform: scale(1.03); }
+
+@media (max-width: 520px) {
+    body { padding: 0; align-items: stretch; }
+    .app-container { max-width: 100%; border-radius: 0; min-height: 100vh; border: none; }
+    .app-header { padding: 1.5rem 1.25rem 1rem; }
+    .app-header h1 { font-size: 1.4rem; }
+    .search-section { padding: 0 1.25rem 1rem; }
+    .input-group { flex-direction: column; }
+    .btn-primary { padding: 0.9rem; width: 100%; }
+    .api-content { padding: 1.25rem; }
+    .webview-frame { height: 500px; }
+}

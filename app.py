@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@app.route('/A02-2024206510025')
 def index():
     """Página Principal - Consulta de CEP via WebView e campo de busca."""
     return render_template('index.html')

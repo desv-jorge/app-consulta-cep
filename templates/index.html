@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="App Consulta de CEP — Busque endereços via GuiaCEP ou BrasilAPI">
+    <title>Consulta de CEP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>📍 Consulta de CEP</h1>
+            <p>Busque qualquer endereço do Brasil em tempo real.</p>
+        </header>
+        <section class="search-section">
+            <div class="input-group">
+                <input type="text" class="search-input" id="cepInput" placeholder="Digite o CEP... ex: 01001-000" maxlength="9" inputmode="numeric" autocomplete="off">
+                <button class="btn btn-primary" id="btnBuscar" type="button">
+                    <span class="btn-icon">🔍</span> Buscar
+                </button>
+            </div>
+        </section>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="webview" id="tabWebview">
+                <span class="tab-emoji">🌐</span> GuiaCEP
+            </button>
+            <button class="tab-btn" data-tab="api" id="tabApi">
+                <span class="tab-emoji">⚡</span> BrasilAPI
+            </button>
+        </div>
+        <div class="tab-content active" id="content-webview">
+            <iframe src="https://guiacep.com/" class="webview-frame" id="webviewFrame" title="GuiaCEP" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+        </div>
+        <div class="tab-content" id="content-api">
+            <div class="api-content">
+                <div class="api-idle" id="apiIdle">
+                    <span class="idle-icon">📦</span>
+                    <p>Digite um CEP acima e clique em <strong>Buscar</strong><br>para consultar via BrasilAPI.</p>
+                </div>
+                <div class="api-loading" id="apiLoading">
+                    <div class="spinner"></div>
+                    <p>Consultando CEP...</p>
+                </div>
+                <div class="result-badge" id="resultBadge">
+                    <span>✅</span><span>Resultado encontrado</span>
+                </div>
+                <div class="result-fields" id="resultFields">
+                    <div class="field"><span class="field-label">CEP</span><span class="field-value" id="valCep">—</span></div>
+                    <div class="field"><span class="field-label">Estado</span><span class="field-value" id="valState">—</span></div>
+                    <div class="field"><span class="field-label">Cidade</span><span class="field-value" id="valCity">—</span></div>
+                    <div class="field"><span class="field-label">Bairro</span><span class="field-value" id="valNeighborhood">—</span></div>
+                    <div class="field"><span class="field-label">Rua</span><span class="field-value" id="valStreet">—</span></div>
+                </div>
+                <div class="error-card" id="errorCard">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-message" id="errorMessage">CEP não encontrado.</span>
+                </div>
+                <div class="illustration" id="illustration">
+                    <img src="https://static.siterastreio.com.br/_next/static/media/busca-cep-correios.46dc90b4.png" alt="Busca CEP — Correios" width="180" height="180" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

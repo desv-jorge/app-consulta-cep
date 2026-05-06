@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Resultado da consulta de CEP via BrasilAPI">
+    <title>Resultado CEP — {{ cep_busca or 'Consulta' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>📍 Consulta de CEP</h1>
+            <p>Resultado via BrasilAPI</p>
+        </header>
+        <div class="api-content">
+            {% if dados %}
+            <div class="result-badge show"><span>✅</span><span>Resultado encontrado</span></div>
+            <div class="result-fields show">
+                <div class="field"><span class="field-label">CEP</span><span class="field-value">{{ dados.cep }}</span></div>
+                <div class="field"><span class="field-label">Estado</span><span class="field-value">{{ dados.state }}</span></div>
+                <div class="field"><span class="field-label">Cidade</span><span class="field-value">{{ dados.city }}</span></div>
+                <div class="field"><span class="field-label">Bairro</span><span class="field-value">{{ dados.neighborhood or '—' }}</span></div>
+                <div class="field"><span class="field-label">Rua</span><span class="field-value">{{ dados.street or '—' }}</span></div>
+            </div>
+            {% elif erro %}
+            <div class="error-card show"><span class="error-icon">⚠️</span><span class="error-message">{{ erro }}</span></div>
+            {% else %}
+            <div class="api-idle" style="display:flex"><span class="idle-icon">⚡</span><p>Digite um CEP para consultar.</p></div>
+            {% endif %}
+            <div class="illustration show">
+                <img src="https://static.siterastreio.com.br/_next/static/media/busca-cep-correios.46dc90b4.png" alt="Busca CEP" width="180" height="180">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
